@@ -46,7 +46,7 @@ p { margin: 0 0 1rem; }
   padding-top: 0.7rem;
 }
 
-.lists { display: grid; gap: 1.5rem; margin: 1.5rem 0; }
+.proposals { display: grid; gap: 1.5rem; margin: 1.5rem 0; }
 
 .list {
   border: 1px solid var(--rule);
@@ -55,6 +55,14 @@ p { margin: 0 0 1rem; }
 }
 
 .where, .host, .wait { font-size: 0.92rem; color: #444; }
+
+.verdict { font-size: 0.95rem; border-left: 3px solid var(--rule); padding-left: 0.8rem; }
+
+table.bids { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin-top: 0.6rem; }
+table.bids th, table.bids td { text-align: left; border-bottom: 1px solid var(--rule); padding: 0.35rem 0.5rem; }
+table.bids th { color: #666; font-weight: normal; }
+
+table.bids td:last-child, table.bids th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 
 .counts {
   display: grid;

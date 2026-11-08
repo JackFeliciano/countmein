@@ -2,27 +2,34 @@
 
 declare(strict_types=1);
 
-use Countmein\Home\Guest;
+use Countmein\Home\Proposal;
 use Countmein\Home\Sample;
 use Countmein\Tests\Assert;
 
 return [
-    ['the sample holds three events', static function (): void {
+    ['the sample holds three proposals', static function (): void {
         Assert::same(3, (new Sample())->count());
     }],
-    ['the sample counts seven guests going', static function (): void {
-        Assert::same(7, (new Sample())->going());
+    ['the sample holds ten signals', static function (): void {
+        Assert::same(10, (new Sample())->signals());
     }],
-    ['the first sample event runs one guest over capacity', static function (): void {
-        $list = (new Sample())->lists()[0];
-        Assert::same(4, $list->going());
-        Assert::same(3, $list->event->capacity());
-        Assert::same(['Tomas Vidal'], $list->waitList());
+    ['two proposals stand open and one stands pooled', static function (): void {
+        $sample = new Sample();
+        Assert::same(1, $sample->pooled());
+        $stages = array_map(static fn ($pool): string => $pool->proposal->stage(), $sample->pools());
+        Assert::same(['open', 'pooled', 'on_sale'], $stages);
     }],
-    ['the restricted event keeps its visibility', static function (): void {
-        $list = (new Sample())->lists()[2];
-        Assert::same('restricted', $list->event->visibility());
-        Assert::same(1, $list->maybe());
-        Assert::same(Guest::GOING, $list->guests()[0]->answer());
+    ['the sample holds four bids and one sale of two tickets', static function (): void {
+        $sample = new Sample();
+        Assert::same(4, $sample->bids());
+        Assert::same(1, count($sample->sales()));
+        Assert::same(2, $sample->sold());
+    }],
+    ['the adviser calls thirty signals for a concert steep', static function (): void {
+        Assert::same(false, (new Sample())->adviser()->affordable(30));
+    }],
+    ['the first proposal waits on one more signal', static function (): void {
+        Assert::same(1, (new Sample())->pools()[0]->left());
+        Assert::same(Proposal::OPEN, (new Sample())->pools()[0]->proposal->stage());
     }],
 ];
