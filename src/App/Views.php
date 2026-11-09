@@ -55,9 +55,9 @@ HTML;
 
     public function page(Sample $sample): string
     {
-        $TITLE = 'CountMeIn, count me in';
-        $LEDE = 'CountMeIn turns an idea for an event into a crowd, and a crowd into a night out.';
-        $WHAT = 'CountMeIn is a signalling and bidding platform for events that do not exist yet. One person proposes a concert, a party, a talk or a trip, and names the act, the organizer, the city, the month and a maximum ticket price. Others signal CountMeIn. The signals are people prepared to pay that maximum, so they measure whether the crowd is worth bringing. Each proposal carries a threshold, which the organizer sets. When the signals reach it, professionals bid into the pool, offering the venue, the production, the sound or the artist. The organizer picks the bids, they agree on a ticket price at or below the maximum, and the signals become ticket holders. The demo shows three proposals at the start, in the pool and at the sale.';
+        $TITLE = 'CountMeIn, interest before the event';
+        $LEDE = 'CountMeIn helps people turn proposed events into ticket sales by gathering enough paying interest before professionals organise them.';
+        $WHAT = 'CountMeIn lets anyone propose an event by naming the act, organiser, city, date and maximum ticket price, then setting a signal threshold. Other people pledge their interest at that price, while an adviser estimates the audience needed to cover the cheapest realistic costs. Once enough people signal, professionals bid to organise the event and sell tickets.';
 
         $out = $this->header($TITLE);
         $out .= '<h1>' . $this->h($TITLE) . '</h1>' . "\n";
@@ -71,14 +71,12 @@ HTML;
         }
         $out .= '</div>' . "\n";
         $out .= $this->adviser($sample);
-        $out .= '<h2>The steps a proposal takes</h2>' . "\n";
+        $out .= '<h2>How CountMeIn works</h2>' . "\n";
         $out .= '<ol class="steps">' . "\n";
         foreach ([
-            ['A person proposes an event', 'The proposal names the act, the organizer, the city, the month and a maximum ticket price, and sets the number of signals it needs.'],
-            ['People signal CountMeIn', 'Each signal is one person prepared to pay that maximum. The pool shows the count and how many signals the threshold still wants.'],
-            ['The adviser sizes the bill', 'A note reads the act, the city and the price cap, and estimates how many tickets the cheapest realistic bill would need.'],
-            ['Professionals bid into the pool', 'When the signals reach the threshold, venues, organizers, managers and the artist team offer their part at a price.'],
-            ['The pool becomes a ticket sale', 'The organizer accepts bids and sets a ticket price at or below the maximum. Every signal becomes one ticket.'],
+            ['Propose the event', 'Propose an event with its details, maximum ticket price and the number of signals it needs.'],
+            ['Signal and let the adviser read it', 'Signal your interest at that price while the adviser estimates the audience needed to make the event viable.'],
+            ['Take the bids and open the sale', 'Review professional bids, select the parties and open ticket sales, with each signal becoming one ticket.'],
         ] as [$head, $body]) {
             $out .= '<li><strong>' . $this->h($head) . '</strong> ' . $this->h($body) . '</li>' . "\n";
         }
