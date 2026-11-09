@@ -1,72 +1,35 @@
 # CountMeIn
 
-## What the project is
+CountMeIn is a demonstration of a platform for events that do not exist yet. Anyone can propose an event by naming the act, organiser, city, month and year, maximum ticket price and some extra information. They also set the number of signals the proposal needs before professionals can organise it.
 
-that keeps 1 guest list per event. Hosts set event details, including the title, place, town, start day, end day, seat limit and visibility. Guests answer going, maybe or no. CountMeIn records the day each answer arrives and counts all 3 responses.
+Other people can signal a proposal. Each signal represents one person willing to pay the stated maximum price. The proposal tracks how many signals it has and how many it still needs.
 
-The guest list tracks available seats. When a yes arrives after the seats run out, CountMeIn adds that guest to the wait list. The wait list keeps the order of replies, so the first name takes the first released seat.
+## How to run the tests
 
-The repository includes a working demo with 3 sample events and 11 guests. The first event has 3 seats and 4 guests who said going. One guest therefore waits for a seat.
-
-The programme uses plain PHP 8.3. It requires no Composer and no packages.
-
-## How to run it
-
-Run the test suite from the repository root:
+CountMeIn uses plain PHP 8.3 and requires no Composer or external packages. The project includes a hand-written test runner in the `tests` directory. Run the test runner with PHP 8.3 to check the project:
 
 ```bash
 php tests/run.php
 ```
 
+## How to run the demo
 
-Start the demo with PHP's built-in server:
+Start the built-in server from the repository root and open the demo in your browser:
 
 ```bash
 php -S 127.0.0.1:8102 -t showroom showroom/index.php
 ```
 
+The demo includes three sample proposals that show the different stages of the process: open, pooled and on sale. The demo uses / as its default URL prefix. Set COUNTMEIN_BASE when a proxy passes a different URL prefix to the application.
 
-The demo uses / as its default URL prefix. Set COUNTMEIN_BASE when a proxy passes a different URL prefix to the application.
+## How a proposal moves through the stages
 
-For example, set the environment variable to the prefix that the proxy passes. The application uses this value when it builds its routes.
+A proposal starts open while people signal their interest. An adviser reads the act, city and price cap, then estimates how many tickets the cheapest realistic bill would need. The organiser considers that advice and sets the threshold.
 
-## What the routes answer
+When signals reach the threshold, professionals can bid for roles in the event, including organiser, venue, manager, act, sound and transport. Each party can bid once for each role. A bid names the party, role, requested sum and offer.
 
-The demo exposes 2 routes.
+The organiser selects the bids and closes the pool into a ticket sale. Every signal becomes one ticket, and the ticket price cannot exceed the original maximum.
 
-/ renders the 3 sample events, their guest counts and the 5 steps a guest list takes.
-/health answers with the event count and the number of guests who said going.
+## Limits of the demo
 
-The sample data gives visitors a view of event attendance and seat allocation. The first event shows the wait list in action, with 4 going replies for 3 available seats.
-
-## How the layout is arranged
-
-The repository separates event data, application handling, the demo entry point, tests and deployment files.
-
-src/Home/ holds Event, Guest, List_ and Sample.
-src/App/ holds the router, front controller and HTML.
-showroom/ holds the entry file and stylesheet.
-tests/ holds the test suite.
-deploy/ holds the systemd unit and nginx location block.
-
-Each directory has a defined role in the application. The layout keeps the event and guest list code separate from routing, presentation and deployment configuration.
-
-## The state of the suite
-
-The repository includes a hand-written test runner with 17 checks.
-
-Run all checks with:
-
-```bash
-php tests/run.php
-```
-
-
-The runner uses no package installation or external test framework. It provides a direct way to check the programme from the command line.
-
-## Licence
-
-CountMeIn carries the Mozilla Public License 2.0.
-
-See the repository's licence file for the full licence terms.
-
+CountMeIn is a demonstration, not a complete event booking service. It stores nothing beyond the sample data included in the request. It does not provide persistent records of proposals, signals, bids or ticket sales. The three sample proposals illustrate the process without representing a live event marketplace.
